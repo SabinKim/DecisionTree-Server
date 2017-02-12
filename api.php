@@ -14,6 +14,13 @@ $parameters = json_decode(file_get_contents('php://input'), true);
 /* set the table and key (if present) from first two tokens of end point */
 $table = $sql->escape_string(array_shift($endpoint));
 $key = $sql->escape_string(array_shift($endpoint));
+$subtable = $sql->escape_string(array_shift($endpoint));
+
+if ($table == 'questions' && $subtable == 'answers') {
+    $query = "SELECT a.* FROM `answers` AS a
+                  LEFT JOIN `question-answer-pairing` AS qap ON qap.`answer` = a.`id`
+                  WHERE qap.`question` = '$key'";
+} else {
 
 /* build the SET clause from the parameters */
 $set = [];
@@ -40,6 +47,8 @@ switch ($verb) {
         break;
 }
 
+}
+
 /* attempt the request */
 $result = $sql->query($query);
 
@@ -54,6 +63,9 @@ switch ($verb) {
         $response = [];
         while ($row = $result->fetch_assoc()) {
             $response[] = $row;
+        }
+        if ($key) {
+            $response = $response[0];
         }
         echo json_encode($response);
         break;
