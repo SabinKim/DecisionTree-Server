@@ -1,0 +1,6 @@
+Options -MultiViews
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule api/v1/(.*)$ %{CONTEXT_PREFIX}/api.php/$1 [QSA,NC,L]
