@@ -2,6 +2,7 @@
 
 /**
  * based on https://www.leaseweb.com/labs/2015/10/creating-a-simple-rest-api-in-php/
+ */
 
 /* allow web apps not hosted on this server to access this API -- very, very dangerous! */
 header('Access-Control-Allow-Origin: *');
