@@ -1,5 +1,7 @@
+# disable automatic filename re-mapping based on languages (breaks RewriteCond)
 Options -MultiViews
 
+# redirect all api/v1/ requests to api.php
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
